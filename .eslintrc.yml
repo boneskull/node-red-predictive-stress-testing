@@ -1,0 +1,15 @@
+extends:
+  - semistandard
+  - plugin:prettier/recommended
+  - prettier/standard
+rules:
+  prettier/prettier:
+    - error
+    - singleQuote: true
+      bracketSpacing: false
+  strict:
+    - error
+    - safe
+plugins:
+  - prettier
+parser: babel-eslint

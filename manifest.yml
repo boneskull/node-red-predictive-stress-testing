@@ -1,0 +1,25 @@
+declared-services:
+  pmstnr-Investment-Portfolio:
+    label: fss-portfolio-service
+    plan: fss-portfolio-service-free-plan
+  pmstnr-Predictive-Market-Scenarios:
+    label: fss-predictive-scenario-analytics-service
+    plan: fss-predictive-scenario-analytics-service-free-plan
+  pmstnr-Simulated-Instrument-Analytics:
+    label: fss-scenario-analytics-service
+    plan: fss-scenario-analytics-service-free-plan
+  pmstnr-Cloudant:
+    label: Cloudant
+    plan: lite
+
+applications:
+  - path: .
+    memory: 256M
+    name: Predictive-Market-Stress-Testing-Node-RED
+    services:
+      - pmstnr-Investment-Portfolio
+      - pmstnr-Predictive-Market-Scenarios
+      - pmstnr-Simulated-Instrument-Analytics
+      - pmstnr-Cloudant
+    env:
+      NODE_RED_STORAGE_NAME: pmstnr-Cloudant
