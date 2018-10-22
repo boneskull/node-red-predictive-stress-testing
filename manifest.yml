@@ -11,7 +11,6 @@ declared-services:
   pmstnr-Cloudant:
     label: Cloudant
     plan: lite
-
 applications:
   - path: .
     memory: 256M
@@ -23,3 +22,4 @@ applications:
       - pmstnr-Cloudant
     env:
       NODE_RED_STORAGE_NAME: pmstnr-Cloudant
+    buildpack: sdk-for-nodejs
