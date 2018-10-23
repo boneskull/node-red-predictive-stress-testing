@@ -10,7 +10,7 @@ declared-services:
     plan: fss-scenario-analytics-service-free-plan
   pmstnr-cloudantNoSQLDB:
     label: cloudantNoSQLDB
-    plan: lite
+    plan: Lite
 applications:
   - path: .
     memory: 256M
