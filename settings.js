@@ -16,15 +16,20 @@
 
 const path = require('path');
 const fs = require('fs');
+const cfenv = require('cfenv');
+const appEnv = cfenv.getAppEnv();
 
 const userDir = path.join(__dirname, '.node-red');
 // Ensure userDir exists - something that is normally taken care of by
 // localfilesystem storage when running locally
-if (!fs.existsSync(userDir)) fs.mkdirSync(userDir);
-if (!fs.existsSync(path.join(userDir, 'node_modules')))
+if (!fs.existsSync(userDir)) {
+  fs.mkdirSync(userDir);
+}
+if (!fs.existsSync(path.join(userDir, 'node_modules'))) {
   fs.mkdirSync(path.join(userDir, 'node_modules'));
+}
 
-module.exports = {
+const settings = (module.exports = {
   uiPort: process.env.PORT || 1880,
   mqttReconnectTime: 15000,
   debugMaxLength: 1000,
@@ -90,4 +95,30 @@ module.exports = {
       audit: true
     }
   }
-};
+});
+
+// Look for the attached Cloudant instance to use for storage
+settings.couchAppname = appEnv.name;
+// NODE_RED_STORAGE_NAME is automatically set by this applications manifest.
+const storageServiceName =
+  process.env.NODE_RED_STORAGE_NAME ||
+  new RegExp(`^${settings.couchAppname}.cloudantNoSQLDB`);
+const couchService = appEnv.getService(storageServiceName);
+
+if (!couchService) {
+  console.log(`Failed to find Cloudant service: ${storageServiceName}`);
+  if (process.env.NODE_RED_STORAGE_NAME) {
+    console.log(
+      ` - using NODE_RED_STORAGE_NAME environment variable: ${
+        process.env.NODE_RED_STORAGE_NAME
+      }`
+    );
+  }
+  // fall back to localfilesystem storage
+} else {
+  console.log(
+    `Using Cloudant service: ${storageServiceName} : ${settings.couchAppname}`
+  );
+  settings.storageModule = require('./couchstorage');
+  settings.couchUrl = couchService.credentials.url;
+}
