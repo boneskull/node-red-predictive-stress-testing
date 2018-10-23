@@ -16,12 +16,15 @@
     "node-red-nodes-cf-sqldb-dashdb": "0.x"
   },
   "scripts": {
+    "lint": "eslint \"*.js\"",
     "start": "node --max-old-space-size=160 app.js --settings ./settings.js -v"
   },
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=6.0.0",
+    "npm": ">=6.0.0"
   },
   "devDependencies": {
+    "babel-eslint": "^10.0.1",
     "eslint": "^5.7.0",
     "eslint-config-prettier": "^3.1.0",
     "eslint-config-semistandard": "^12.0.1",
