@@ -8,8 +8,8 @@ declared-services:
   pmstnr-Simulated-Instrument-Analytics:
     label: fss-scenario-analytics-service
     plan: fss-scenario-analytics-service-free-plan
-  pmstnr-Cloudant:
-    label: Cloudant
+  pmstnr-cloudantNoSQLDB:
+    label: cloudantNoSQLDB
     plan: lite
 applications:
   - path: .
@@ -19,7 +19,7 @@ applications:
       - pmstnr-Investment-Portfolio
       - pmstnr-Predictive-Market-Scenarios
       - pmstnr-Simulated-Instrument-Analytics
-      - pmstnr-Cloudant
+      - pmstnr-cloudantNoSQLDB
     env:
-      NODE_RED_STORAGE_NAME: pmstnr-Cloudant
+      NODE_RED_STORAGE_NAME: pmstnr-cloudantNoSQLDB
     buildpack: sdk-for-nodejs
