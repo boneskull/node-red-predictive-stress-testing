@@ -113,8 +113,9 @@ if (!couchService) {
         process.env.NODE_RED_STORAGE_NAME
       }`
     );
+  } else {
+    console.log('Falling back to local filesystem storage');
   }
-  // fall back to localfilesystem storage
 } else {
   console.log(
     `Using Cloudant service: ${storageServiceName} : ${settings.couchAppname}`
