@@ -28,7 +28,7 @@ if (!settings.adminAuth) {
   }
   console.log('Loading application settings');
   storage
-    .init(settings)
+    .init(settings, require('node-red/red/runtime'))
     .then(storage.getSettings)
     .then(runtimeSettings => {
       if (process.env.NODE_RED_USERNAME && process.env.NODE_RED_PASSWORD) {
