@@ -71,3 +71,7 @@ typings/
 
 # Serverless directories
 .serverless
+
+.node-red/*_cred.json
+.node-red/.config*
+.node-red/*.backup
